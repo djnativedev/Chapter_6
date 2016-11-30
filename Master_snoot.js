@@ -132,7 +132,28 @@ function checkPlaceholder() {
     }
 }
 
-/* 9 validate address fieldsets */
+/* 8 add placeholder text for browsers that don't support placeholder attribute*/
+ function generatePlaceholder()
+ {
+ 	if (!Modernizr.input.placeholder)
+ 	{
+ 		var messageBox = document.getElementById("customText");
+ 		messageBox.value = messageBox.placeholder;
+ 		messageBox.style.color = "rgb(178, 184, 183)";
+ 		if (messageBox.addEventListener)
+ 			{
+ 				messageBox.addEventListener("focus", zeroPlaceholder, false);
+ 				messageBox.addEventListener("blur", checkPlaceholder, false);
+ 			}
+ 		else if (messageBox.attachEvent)
+ 		{
+ 			messageBox.attachEvent("onfocus", zeroPlaceholder);
+ 			messageBox.attachEvent("onblur", checkPlaceholder);
+ 		}
+ 	}
+ }
+
+ /* 9 validate address fieldsets */
 function validateAddress(fieldsetId){
 	var inputElements = document.querySelectorAll("#" + fieldsetId + "input");
 	var errorDiv = document.querySelectorAll("#" + fieldsetId + ".errorMessage")[0];
