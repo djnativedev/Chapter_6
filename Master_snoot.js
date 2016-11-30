@@ -243,6 +243,58 @@ function validateMessage() {
             formValidity = false;
         }
     }
+    
+/* 13 Validate create account */
+function validateCreateAccount() {
+    var errorDiv = document.querySelector("#createAccount . errorMessage");
+    var usernameElement = document.getElementById("username");
+    var pass1Element = document.getElementById("pass1");
+    var pass2Element = document.getElementById("pass2");
+    var passwordMismatch = false;
+    var invColor = "rgb(255,233,233)";
+    try {
+        // reset styles to valid state
+        usernameElement.style.background = " ";
+        pass1Element.style.background = " ";
+        pass2Element.style.background = " ";
+        errorDiv.style.display = "none";
+        if ((usernameElement.value !== " " && pass1Element.value !== " " && pass2Element.value !== " ")) {
+            // all fields are filled
+            if (pass1Element.value !== pass2Element.value) {
+                //passwords dont match
+                passwordMismatch = true;
+                throw "Passwords you entered do not match; please re-enter.";
+            }
+        }
+        /* else added to the start of the following line of code, as the code does not work correctly without it.
+        (p. 426, Step 2, line 16) */
+        else if (!(usernameElement.value === " " && pass1Element.value === " " && pass2Element.value === " ")) {
+            // not all fields are blank
+            throw "Please complete all fields to create an account.";
+        }
+    }
+    catch(msg) {
+        errorDiv.innerHTML = msg;
+        errorDiv.style.display = "block";
+        if (passwordMismatch) {
+            usernameElement.style.background = "";
+            pass1Element.style.background = invColor;
+            pass2Element.style.background = invColor;
+        } else {
+            if (usernameElement.value === " ") {
+                usernameElement.style.background = invColor;
+            }
+            if (pass1Element === " ") {
+                pass1Element.style.background = invColor;
+            }
+            if (pass2Element.value === " ") {
+                pass2Element.style.background = invColor;
+            }
+        }
+        formValidity = false;
+    }
+}
+
 /* 14 validate number fields for older browsers */
 function validateNumbers() {
     var ccNotNum;
