@@ -81,7 +81,14 @@ function updateDays ()
  	}
  }
 
- /* 4 copy values for Billing Address fields to Delivery Address fields*/
+/* page 374 step 8 run setup function when page finishes loading */
+if (window.addEventListener) {
+	window.addEventListener("load", removeSelectDefaults, false);
+} else if (window.attachEvent) {
+	window.attachEvent("onload", removeSelectDefaults);
+}
+
+/* 4 copy values for Billing Address fields to Delivery Address fields*/
  function copyBillingAddress()
  {
  	var billingInputElements = document.querySelectorAll("#billingAddress input");
