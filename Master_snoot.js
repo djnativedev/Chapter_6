@@ -215,7 +215,40 @@ function validateNumbers() {
         }
         formValidity = false;
     }
-/* 16 create event listeners */
+/* 15 Function to Validate Forms */
+function validateForm(evt){
+ if (evt.preventDefault)
+ {
+ evt.preventDefault(); //Prevent form form submitting
+ }
+ else
+ {
+ evt.returnValue = false; //Prevent form from submitting in IE8
+ }
+
+ formValidity = true; //reset vale for revalidation
+ validateAddress("billingAddress");
+ validateAddress("deliveryAddress");
+ validateDeliveryDate();
+ validatePayment();
+ validateMessage();
+ validateCreateAccount();
+ validateNumbers();
+ if (formValidity === true) 
+ {
+ document.getElementById("errorText").innerHTML = "";
+ document.getElementById("deliveryAddress");
+ document.getElementsByTagName("form")[0].submit();
+ }
+ else
+ {
+ document.getElementById("errorText").innerHTML = "Please fix the indicated problems and then resubmit your order. ";
+ document.getElementById("errorText").style.display = "block";
+ scroll (0,0);
+ }
+ }
+
+ /* 16 create event listeners */
 function createEventListeners() {
    var deliveryMonth = document.getElementById("delivMo");
    if (deliveryMonth.addEventListener) {
