@@ -66,7 +66,43 @@ function updateDays ()
 		deliveryDay.appendChild(thirtyOne.cloneNode(true));
 		}
 	}
-}//function autocheckCustom
+}
+
+/* 3 remove default values and formatting from state and dilivery date selection list*/
+ function removeSelectDefaults()
+ {
+ 	var emptyBoxes = document.getElementsByTagName("select");
+ 	for (var i = 0; i < emptyBoxes.length; i++)
+ 	{
+ 		emptyBoxes[i].selectedIndex = -1;
+ 		emptyBoxes[i].style.boxShadow = "none";
+ 	}
+ }
+
+ /* 4 copy values for Billing Address fields to Delivery Address fields*/
+ function copyBillingAddress()
+ {
+ 	var billingInputElements = document.querySelectorAll("#billingAddress input");
+ 	var deliveryInputElements = document.querySelectorAll("#deliveryAddress input");
+ 	if (document.getElementById("sameAddr").checked)
+ 	{
+ 		for (var i = 0; i < billingInputElements.length; i++)
+ 		{
+ 			deliveryInputElements[i + 1].value = billingInputElements[i].value;
+ 		}
+ 		document.querySelector("deliveryAddress select").value = document.querySelector("billingAddress select").value;
+ 	}
+ 	else
+ 	{
+ 		for (var i = 0; i < billingInputElements.length; i++)
+ 		{
+ 			deliveryInputElements[i + 1].value = "";
+ 		}
+ 		document.querySelector("#deliveryAddress select").selectedIndex = -1;
+ 	}
+ }
+
+ //function autocheckCustom
 /* 5 automatically check Custom message check box if user makes entry in customText box */
 function autocheckCustom () {
     var messageBox = document.getElementById("customText");
