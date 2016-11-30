@@ -10,7 +10,22 @@
 * Filename: snoot.js
 */
 
-/* 2 update selection list of days based on selected month and year */
+/* 1 set up node building blocks for selection list of days*/
+ function setupDays()
+ {
+ 	var dates = document.getElementById("delivDy").getElementsByTagName("option");
+ 	twentyNine.appendChild(date[28].cloneNode(true));
+ 	//add 29th
+ 	thirty.appendChild(date[28].cloneNode(true));
+ 	thirty.appendChild(date[29].cloneNode(true));
+ 	//add 29th and 30th
+ 	thirtyOne.appendChild(date[28].cloneNode(true));
+ 	thirtyOne.appendChild(date[29].cloneNode(true));
+ 	thirtyOne.appendChild(date[30].cloneNode(true));
+ 	//add 29th, 30th, 31st
+ }
+
+ /* 2 update selection list of days based on selected month and year */
 function updateDays () 
 	{
 	var deliveryDay = document.getElementById("delivDy");
@@ -72,7 +87,7 @@ function zeroPlaceholder() {
     }
 }
 
-// 7 function checkPlaceholder
+/* 7 function checkPlaceholder */
 function checkPlaceholder() {
     var messageBox = document.getElementById("customText");
     if (messageBox.value === "") {
@@ -243,7 +258,7 @@ function validateMessage() {
             formValidity = false;
         }
     }
-    
+
 /* 13 Validate create account */
 function validateCreateAccount() {
     var errorDiv = document.querySelector("#createAccount . errorMessage");
