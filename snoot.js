@@ -4,11 +4,13 @@
 
 * Snoot Flowers
 * Functions
-* Author: 
+* Author: Darrell Jones
 * Date: 11/30/16
 
 * Filename: snoot.js
 */
+
+"use strict"; //interpret document contents in javascript strict mode
 
 /* 1 set up node building blocks for selection list of days*/
  function setupDays()
