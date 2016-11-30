@@ -10,7 +10,47 @@
 * Filename: snoot.js
 */
 
+/* 2 update selection list of days based on selected month and year */
+function updateDays () 
+	{
+	var deliveryDay = document.getElementById("delivDy");
+	var dates = deliveryDay.getElementsByTagName("option");
+	var deliveryMonth = document.getElementById("delivMo");
+	var deliveryYear = document.getElementById("delivYr");
+	var selectedMonth = deliveryMonth.options[deliveryMonth.selectedIndex].value;
 
+		while (dates[28]) 
+		{
+			//remove child with index of 28 until this index is empty
+			deliveryDay.removeChild(dates[28]);
+		}
+		
+		if (deliveryYear.selectedIndex === -1)
+		{
+			// if no year is selected, choose the default year so length of Feb can be determined
+			deliveryYear.selectedIndex = 0;
+		}
+		
+		if (selectedMonth === "2" && deliveryYear.options[deliveryYear.selectedIndex].value === "2018")
+		{
+			// if leap year, Feb has 29 days
+			deliveryDay.appendChild(twentyNine.cloneNode(true));
+		}
+		
+		else if (selectedMonth === "4" || selectedMonth === "6" || selectedMonth === "9" || selectedMonth === "11")
+		{
+			// these months have 30 days
+			deliveryDay.appendChild(thirty.cloneNode(true));
+		}
+		
+		else if (selectedMonth === "1" || selectedMonth === "3" || selectedMonth === "5" || selectedMonth === "7" ||
+		selectedMonth === "8" ||  selectedMonth === "10" || selectedMonth === "12") 
+		
+		{
+		//these months have 31 days
+		deliveryDay.appendChild(thirtyOne.cloneNode(true));
+		}
+	}
 }//function autocheckCustom
 /* 5 automatically check Custom message check box if user makes entry in customText box */
 function autocheckCustom () {
@@ -40,6 +80,52 @@ function checkPlaceholder() {
         messageBox.value = messageBox.placeholder;
     }
 }
+
+/* 9 validate address fieldsets */
+function validateAddress(fieldsetId){
+	var inputElements = document.querySelectorAll("#" + fieldsetId + "input");
+	var errorDiv = document.querySelectorAll("#" + fieldsetId + ".errorMessage")[0];
+	var fieldsetValidity = true;
+	var elementCount = inputElements.length;
+	var currentElement;
+	try{
+		for (var i = 0; i < elementCount; i++){
+			//validate all input elements in fieldset
+			currentElement = inputElements[i];
+			if (currentElement.value ===""){
+				currentElement.style.background = "rgb(255,233,233)";
+				fieldsetValidity = false;
+			} else {
+				currentElement.style.background = "white";
+			}
+		}
+		currentElement = document.querySelectorAll ("#" + fieldsetId + " select");
+		//validate state select element
+		if (currentElement.selectedIndex === -1){
+			currentElement.style.border = "1px solid red";
+			fieldsetValidity = false;
+		} else {
+			currentElement.style.border = "";
+		}
+		if (fieldsetValidity === false){
+			//throw appropriate message based on current fieldset
+			if (fieldsetId === "billingAddress"){
+				throw "Please complete all Billing Address information.";
+			} else {
+				throw "Please complete all Delivery Address information.";
+			}
+		} else {
+			errorDiv.style.display = "none";
+			errorDiv.innerHTML = "";
+		}
+		catch(msg){
+			errorDiv.style.display = "block";
+			errorDiv.innerHTML = msg;
+			formValidity = false;
+		}
+	}//end try
+}//end validatAddress
+
 /* 10 validate delivery date fieldset */
 function validateDeliveryDate() {
 var selectElements = document.querySelectorAll("#deliveryDate select");
