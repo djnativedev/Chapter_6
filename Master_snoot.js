@@ -156,6 +156,72 @@ try {
      }
      }
 
+/* 11 validate paymnt field set*/
+
+function validatePayment(){
+    var errorDiv = document.querySelector("#paymentInfo .errorMessage");
+    var fieldsetValidity = true;
+    var ccNumElement = document.getElementById("ccNum");
+    var selectElements = document.querySelectorAll("#paymentInfo select");
+    var elementCount = selectElements.length;
+    var ccvElement = document.getElementById("ccv");
+    var cards = document.getElementsByName("PaymentType");
+    var currentElement;
+        
+        try{
+            if (!cards[0].checked && !cards[1].checked && !cards[2].checked && !cards[3].checked){        
+            //verify that a card is slelcted
+            for (i = 0; i < 4; i++){
+                cards[i].style.outline = "1px solid red";
+                }
+                filedsetValidity = false;
+                } else {
+                    for (i = 0; i < 4; i++){
+                        cards[i].style.outline = "";
+                    }
+                }
+
+        if (ccNumElement.value === ""){
+            //verify that a card number has been entered
+            ccNumElement.style.background = "rgb(255,233,233)";
+            fieldsetValidity = false;
+        } else {
+            ccNumElement.style.background = "white";
+        }
+
+        for (var i = 0; i < elementCount; i++){
+            //verify that a month and year have been selected
+            currentElement = selectElements[i];
+            if (currentElement.selectedIndex === -1){
+                currentElement.style.border = "1px solid red";
+                filedsetValidity = false;
+                } else {
+                    currentElement.style.border = "";
+                }
+        }
+
+        if (ccvElement.value === ""){
+            //verify that a ccv value has been entered
+            ccvElement.style.background = "rgb(255,233,233)";
+            fieldsetValidity = false;
+        } else {
+            ccvElement.style.background = "white";
+        }
+
+        if (!fieldsetValidity){ //check if any field is blank
+            throw "Please complete all payment information.";
+        } else {
+            errorDiv.style.display = "none";
+        }
+    }
+
+    catch(msg) {
+        errorDiv.style.display = "block";
+        errorDiv.innerHTML = msg;
+        formValidity = false;
+    }
+}
+
 //function validateMessage
 /* 12 validate message fieldset */
 function validateMessage() {
