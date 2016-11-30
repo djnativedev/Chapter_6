@@ -12,6 +12,11 @@
 
 "use strict"; //interpret document contents in javascript strict mode
 
+/* Page 376, Step 2 changes - global variables */
+var twentyNine = document.createDocumentFragment();
+var thirty = document.createDocumentFragment();
+var thirtyOne = document.createDocumentFragment();
+
 /* 1 set up node building blocks for selection list of days*/
  function setupDays()
  {
